@@ -1,0 +1,53 @@
+version: '3'
+
+services:
+  front:
+    image: hello-world-next
+    container_name: hello-world-next-test
+    environment:
+      - API_URL=http://backend:3000/api
+    depends_on:
+      - backend
+
+  backend:
+    image: hello-world-api
+    container_name: hello-world-api-test
+    environment:
+      - PORT=3000
+    depends_on:
+      - database
+
+  database:
+    image: postgres:15
+    container_name: hello-world-postgres
+    volumes:
+      - ./data/psql:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=test
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_USER=test
+
+  web:
+    image: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx:/etc/nginx 
+      - ./data/ssl/certbot:/etc/letsencrypt
+      - ./data/ssl/www:/var/www/certbot
+      - ./data/logs/nginx/:/var/log/nginx
+    depends_on:
+      - backend
+      - front
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./data/ssl/certbot:/etc/letsencrypt
+      - ./data/ssl/www:/var/www/certbot
+      - ./data/logs/certbot:/var/log/letsencrypt
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email {email} -d {domain} --agree-tos
