@@ -14,9 +14,6 @@ It might be used to spin up development server without much config.
 - configs
     - nginx.conf for server without ssl certs
     - nginx.conf for server with ssl certs
-- example apps
-    - hello world api with nestjs and dockerfile
-    - hello world front with nextjs and dockerfile
 
 # Prerequisites
 To use this you will need:
@@ -24,23 +21,33 @@ To use this you will need:
     - docker 
     - docker compose
 - some knowledge of using ssh
+- some apps that you can run here
+    - front
+    - backend
+
+Optional:
+- domain
 
 # Basic setup
 - In docker compose change values for:
     - docker image names
     - docker container names
-    - certbot {email} and {domain}
+    - (if you want use ssl) certbot {email} and {domain}
 - Setup
     - environment variables for your projects
 - nginx config
     - set correct domain
     - change other settings if needed
+- images
+    - upload images of containers or upload them to registry
 
 # Profiles
 Docker compose file has 3 profiles:
 - ssl - to run app with ssl - starts frontend, backend, nginx, database
 - no-ssl - to run app without ssl - starts frontend, backend, nginx, database,
 - certbot - to just run a certbot
+
+To run specific profile use `--profile` flag when running docker compose.
 
 If domain is setup, use cerbot to generate certificates.
 
