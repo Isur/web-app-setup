@@ -84,3 +84,9 @@ docker save image_name | ssh -C username@hostname docker load
 ```
 
 Or use other ways to create or download images.
+
+After updating the images remeber about restarting the container!
+
+```bash
+docker compose up -d
+```
