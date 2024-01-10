@@ -88,5 +88,5 @@ Or use other ways to create or download images.
 After updating the images remeber about restarting the container!
 
 ```bash
-docker compose up -d
+docker compose --profile {profile you want to use} up -d
 ```
