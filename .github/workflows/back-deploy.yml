@@ -43,7 +43,5 @@ jobs:
 
       - name: Restart app
         run: |
-          ssh server
-          cd ~/apps/web-app-setup
-          ./deploy backend
+          ssh server 'cd ~/apps/web-app-setup; ./deploy backend'
 
