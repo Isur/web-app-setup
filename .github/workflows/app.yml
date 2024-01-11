@@ -4,7 +4,11 @@ on:
   push:
     branches:
       - "*"
+    paths:
+      - 'apps/front/**'
   pull_request:
+    paths:
+      - 'apps/front/**'
 
 jobs:
   Testing:
