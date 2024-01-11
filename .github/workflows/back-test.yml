@@ -1,0 +1,44 @@
+name: API Test & Lint
+
+on:
+  push:
+    branches:
+      - "*"
+    paths:
+      - 'apps/api/**'
+  pull_request:
+    paths:
+      - 'apps/api/**'
+
+jobs:
+  Testing:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/api
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
+      - name: Install
+        run: pnpm install
+
+      - name: Build test
+        run: pnpm run build
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Tests
+        run: pnpm run test
