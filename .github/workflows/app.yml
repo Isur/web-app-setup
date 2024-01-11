@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: apps/front
+        working-directory: ${{ github.workspace }}/apps/front
     steps:
       - name: Checkout
         uses: actions/checkout@v3
