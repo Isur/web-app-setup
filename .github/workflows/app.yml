@@ -22,7 +22,10 @@ jobs:
           node-version: 16
 
       - name: CD
-        run: cd ./apps/front
+        run: |
+          ls -la
+          cd ./apps/front
+          ls -la
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
