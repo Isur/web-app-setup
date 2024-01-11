@@ -24,6 +24,9 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
 
+      - name: CD
+        run: cd ./apps/front
+
       - name: Install
         run: pnpm ci
 
