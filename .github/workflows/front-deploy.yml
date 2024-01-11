@@ -22,7 +22,7 @@ jobs:
       - name: Build docker
         run: docker build . -t test-isur-dev/frontend
         env:
-          NEXT_PUBLIC_API_URL: ${{ vars.API_URL }}
+          NEXT_PUBLIC_API_URL: ${{ env.API_URL }}
 
       - name: Configure SSH
         run: |
