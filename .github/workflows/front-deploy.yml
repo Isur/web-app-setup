@@ -15,18 +15,16 @@ jobs:
     defaults:
       run:
         working-directory: apps/front
+        env:
+          NEXT_PUBLIC_API_URL: ${{ vars.API_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Build docker
         run: |
-          echo $env
-          echo $NEXT_PUBLIC_API_URL
-          echo $API_URL
+          echo "Building with API_URL: ${{ NEXT_PUBLIC_API_URL }}"
           docker build . -t test-isur-dev/frontend
-        env:
-          NEXT_PUBLIC_API_URL: ${{ env.API_URL }}
 
       - name: Configure SSH
         run: |
