@@ -28,7 +28,7 @@ jobs:
           run_install: false
 
       - name: Install
-        run: pnpm ci
+        run: pnpm install
 
       - name: Build test
         run: pnpm run build
