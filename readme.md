@@ -4,6 +4,8 @@ Repository contains example setup for web application with docker compose file.
 
 It might be used to spin up development server without much config.
 
+There are example apps and github workflows with testing and deployment.
+
 ### What you can find here?
 - docker-compose.yml with config for:
     - postgresql
@@ -14,6 +16,14 @@ It might be used to spin up development server without much config.
 - configs
     - nginx.conf for server without ssl certs
     - nginx.conf for server with ssl certs
+- github workflows
+    - Testing on all branches for backend and frontend
+    - Deployment on master for backend and frontend
+- apps
+    - example frontend app with nextjs
+    - example backend app with nestjs
+- deploy script
+    - it will restart app after uploading new image
 
 # Prerequisites
 To use this you will need:
@@ -21,12 +31,10 @@ To use this you will need:
     - docker 
     - docker compose
 - some knowledge of using ssh
-- some apps that you can run here
-    - front
-    - backend
 
 Optional:
-- domain
+- domain - so you can use certbot
+- github - so github actions can be run
 
 # Basic setup
 - In docker compose change values for:
@@ -40,6 +48,14 @@ Optional:
     - change other settings if needed
 - images
     - upload images of containers or upload them to registry
+- apps
+    - adjust to your needs
+- workflows
+    - adjust to your needs
+- github
+    - setup secrets that will be used in workflows
+- deploy
+    - you might want to change profile that is used for deployment (ssl, no-ssl)
 
 # Profiles
 Docker compose file has 3 profiles:
@@ -90,3 +106,8 @@ After updating the images remeber about restarting the container!
 ```bash
 docker compose --profile {profile you want to use} up -d
 ```
+
+# Automation
+There are prepared github workflows that will upload image to the server and run restart script. 
+
+You migth want to adjust names/script/profiles so everything is correctly setup.
