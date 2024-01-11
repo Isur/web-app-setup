@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo Deploying app $1
+docker compose --profile no-ssl up -d $1
+docker image prune -f
+echo Deployed app $1
