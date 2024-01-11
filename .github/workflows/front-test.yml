@@ -1,0 +1,41 @@
+name: Front Test & Lint
+
+on:
+  push:
+    branches:
+      - "*"
+    paths:
+      - 'apps/front/**'
+  pull_request:
+    paths:
+      - 'apps/front/**'
+
+jobs:
+  Testing:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/front
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
+      - name: Install
+        run: pnpm install
+
+      - name: Build test
+        run: pnpm run build
+
+      - name: Lint
+        run: pnpm run lint

@@ -1,0 +1,47 @@
+name: Api Deploy
+
+on:
+  workflow_run:
+    workflows: [API Test & Lint]
+    branches: [master]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclussion == 'success' }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/api
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build docker
+        run: docker build . -t test-isur-dev/backend
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/key.key
+          chmod 600 ~/.ssh/key.key
+          cat >> ~/.ssh/config <<END
+          HOST server
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/key.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+
+      - name: Upload docker
+        run: docker save test-isur-dev/backend | ssh -C server docker load
+
+      - name: Restart app
+        run: |
+          cd ~/apps/web-app-setup
+          docker compose --profile no-ssl up -d backend
