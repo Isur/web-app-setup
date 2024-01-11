@@ -1,10 +1,10 @@
 version: '3'
 
 services:
-  front:
+  frontend:
     profiles: ["ssl", "no-ssl"]
-    image: hello-world-next
-    container_name: hello-world-next-test
+    image: app/frontend
+    container_name: frontend
     environment:
       - API_URL=http://backend:3000
     depends_on:
@@ -12,8 +12,8 @@ services:
 
   backend:
     profiles: ["ssl", "no-ssl"]
-    image: hello-world-api
-    container_name: hello-world-api-test
+    image: app/backend
+    container_name: backend
     environment:
       - PORT=3000
     depends_on:
@@ -22,7 +22,7 @@ services:
   database:
     profiles: ["ssl", "no-ssl"]
     image: postgres:15
-    container_name: hello-world-postgres
+    container_name: backend
     volumes:
       - ./data/psql:/var/lib/postgresql/data
     ports:
@@ -45,7 +45,7 @@ services:
       - ./data/logs/nginx/:/var/log/nginx
     depends_on:
       - backend
-      - front
+      - frontend
 
   web-no-ssl:
     profiles: ["no-ssl"]
@@ -57,7 +57,7 @@ services:
       - ./data/logs/nginx/:/var/log/nginx
     depends_on:
       - backend
-      - front
+      - frontend
 
   certbot:
     profiles: ["certbot"]
