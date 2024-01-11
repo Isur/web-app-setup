@@ -8,7 +8,7 @@ export const getServerSideProps = async () => {
   try {
     const res = await fetch(process.env.API_URL!);
     const text = await res.text()
-    console.log(text, process.env.API_URL)
+    console.log(text, process.env.API_URL, process.env.NEXT_PUBLIC_API_URL);
     return { props: {text, e: process.env.API_URL} }
   } catch (error) {
     console.log(error)
