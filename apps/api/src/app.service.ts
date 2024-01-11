@@ -4,6 +4,6 @@ import { Injectable } from '@nestjs/common';
 export class AppService {
   getHello(): string {
     const r = Math.ceil(Math.random() * 10);
-    return `Hello World! ${r}`;
+    return `Hello World! It\'s me, NestJS! ${r}`;
   }
 }
