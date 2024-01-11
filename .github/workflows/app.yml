@@ -21,11 +21,11 @@ jobs:
         with:
           node-version: 16
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-
       - name: CD
         run: cd ./apps/front
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
 
       - name: Install
         run: pnpm ci
