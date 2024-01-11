@@ -33,7 +33,7 @@ export default function Home({text, e}: {text: string, e?: string}) {
         />
       </div>
       Hello World! This is nextjs app.
-      <p> This is deploy test. </p>
+      <p> This is deploy test! </p>
 
       <p>This is link to the public backend: {process.env.NEXT_PUBLIC_API_URL}</p>
       <p>This is link to the interal backend: {e}</p>
