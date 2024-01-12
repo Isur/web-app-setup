@@ -54,6 +54,8 @@ services:
       - "80:80"
     volumes:
       - ./config/nginx-no-ssl:/etc/nginx
+      - ./data/ssl/certbot:/etc/letsencrypt
+      - ./data/ssl/www:/var/www/certbot
       - ./data/logs/nginx/:/var/log/nginx
     depends_on:
       - backend
