@@ -69,4 +69,4 @@ services:
       - ./data/ssl/certbot:/etc/letsencrypt
       - ./data/ssl/www:/var/www/certbot
       - ./data/logs/certbot:/var/log/letsencrypt
-    command: certonly --webroot -w /var/www/certbot --force-renewal --email {email} -d {domain} --agree-tos
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email {email} -d {domain} -d {www.domain} --agree-tos
