@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   frontend:
@@ -22,7 +22,7 @@ services:
   database:
     profiles: ["ssl", "no-ssl"]
     image: postgres:15
-    container_name: backend
+    container_name: postgresql
     volumes:
       - ./data/psql:/var/lib/postgresql/data
     ports:
